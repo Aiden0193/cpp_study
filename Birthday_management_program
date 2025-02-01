@@ -1,0 +1,75 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct student{ char name[20]; char birthday[5]; };
+
+int main()
+{
+    int i, f, l, j=0;
+    struct student *s=(struct student*)malloc(5*sizeof(struct student));
+    int m=5; int n=0; 
+    char name;
+    
+    printf("------기능------\n1.프로그램 정보 조회\n2.학생추가\n3.학생 검색\n4.모든학생 출력\n5.저장공간 추가\n6.프로그램 종료\n-----------------\n\n");
+    
+    while(1){
+        printf("기능 선택>> ");
+    scanf("%d", &f);
+    
+    if(f==1){
+        printf("저장 가능 인원: %d명 / 저장한 인원: %d명\n\n", m, n);
+    }
+    
+    else if(f==2){
+        printf("이름 입력>> ");
+        scanf("%s", s[j].name);
+        
+        printf("생일 입력>> ");
+        scanf("%s", s[j].birthday);
+        
+        printf("\n");
+        
+        n++;
+        j++;
+    }
+    
+    else if(f==3){
+        printf("이름 입력>> ");
+        scanf("%s", &name);
+        for(l=0;l<n;l++){
+        if(strcmp(&name, s[l].name)==0){
+            printf("%s\n\n", s[l].birthday);
+        }
+        }
+    }
+    
+    else if(f==4){
+        for(i=0;i<n;i++){
+            printf("%s %s \n", s[i].name, s[i].birthday);
+        }
+        printf("\n");
+    }
+    
+    else if(f==5){
+        printf("저장공간이 추가되었습니다.\n\n");
+        s=(struct student*)realloc(s, (m+5)*sizeof(struct student));
+        m=m+5;
+    }
+    
+    else if(f==6){
+        printf("프로그램을 종료합니다.");
+        break;
+    }
+    
+    }
+    return 0;
+}
