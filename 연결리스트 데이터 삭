@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node{
+    int data;
+    struct node*link;
+};
+
+int main()
+{
+    int i; int key;
+    struct node* head=NULL;
+    struct node* newNode;
+    struct node* p1, *p2;
+    
+    for(i=1;i<=9;i++){
+        newNode=(struct node*)malloc(sizeof(struct node));
+        newNode->data=i*100;
+        newNode->link=head;
+        head=newNode;
+    }
+    
+    printf("삭제 전 데이터 출력: ");
+    p1=head;
+    while(p1!=NULL){
+        printf("%d ", p1->data);
+        p1=p1->link;
+    }
+    printf("\n");
+    
+    for(i=0;i<3;i++){
+        printf("삭제할 데이터 입력>>");
+        scanf("%d", &key);
+        
+        if(head->data==key){
+            p1=head;
+            head=p1->link;
+            free(p1);
+        }
+        else{
+            p1=head;
+            while(p1->link!=NULL){
+                if((p1->link)->data==key){
+                    p2=p1->link;
+                    p1->link=p2->link;
+                    free(p2);
+                    break;
+                }
+                p1=p1->link;
+            }
+        }
+    }
+    
+    printf("삭제 후 데이터 출력: ");
+    p1=head;
+    while(p1!=NULL){
+        printf("%d ", p1->data);
+        p1=p1->link;
+    }
+    printf("\n");
+    
+    p1=p2=head;
+    while(p2!=NULL){
+        p1=p2;p2=p2->link;free(p1);
+    }
+
+    return 0;
+}
