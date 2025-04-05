@@ -1,0 +1,161 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct node{
+    char account[5];
+    int money;
+    struct node* link;
+};
+
+int main()
+{
+    int f, in, out, check;
+    char account[5];
+    struct node* head=NULL;
+    struct node* tail=NULL;
+    struct node* newNode;
+    struct node* p, *p1, *p2;
+    
+    printf("------기능------\n0.확인\n1.가입\n2.입금\n3.출금\n4.조회\n5.해지\n6.프로그램 종료\n--------------\n\n");
+    
+    while(1){
+        printf("기능 선택>> ");
+        scanf("%d", &f);
+        
+        if(f==0){
+            p=head;
+            while(p!=NULL){
+                printf("계좌: %s / 잔액: %d원\n", p->account, p->money);
+                p=p->link;
+            }
+            printf("\n");
+        }
+        
+        else if(f==1){
+            newNode=(struct node*)malloc(sizeof(struct node));
+            printf("신규 계좌 번호 입력: ");
+            scanf("%s", newNode->account);
+            if(tail==NULL){
+                tail=newNode;
+            }
+            if(head==NULL){
+                head=newNode;
+            }
+            newNode->link=NULL;
+            tail->link=newNode;
+            tail=newNode;
+            printf("가입이 완료되었습니다.\n\n");
+        }
+        
+        else if(f==2){
+            printf("계좌 번호 입력: ");
+            scanf("%s", account);
+            p=head;
+            while(p!=NULL){
+                if(strcmp(p->account, account)==0){
+                    check=1;
+                    break;
+                }
+                p=p->link;
+            }
+            
+            if(check!=1){
+                printf("해당 계좌를 찾을 수 없습니다.\n\n");
+                break;
+            }
+            
+            printf("입금액 입력: ");
+            scanf("%d", &in);
+            
+            p->money = p->money + in;
+            
+            printf("입금이 완료되었습니다. (잔액:%d)\n\n", p->money);
+            check=0;
+        }
+        
+        else if(f==3){
+            printf("계좌 번호 입력: ");
+            scanf("%s", account);
+            p=head;
+            while(p!=NULL){
+                if(strcmp(p->account, account)==0){
+                    check=1;
+                    break;
+                }
+                p=p->link;
+            }
+            
+            if(check!=1){
+                printf("해당 계좌를 찾을 수 없습니다.\n\n");
+                break;
+            }
+            
+            printf("출금액 입력: ");
+            scanf("%d", &out);
+            
+            p->money = p->money - out;
+            
+            printf("출금이 완료되었습니다. (잔액:%d)\n\n", p->money);
+            check=0;
+        }
+        
+        else if(f==4){
+            printf("계좌 번호 입력: ");
+            scanf("%s", account);
+            p=head;
+            while(p!=NULL){
+                if(strcmp(p->account, account)==0){
+                    check=1;
+                    break;
+                }
+                p=p->link;
+            }
+            
+            if(check!=1){
+                printf("해당 계좌를 찾을 수 없습니다.\n\n");
+                break;
+            }
+            
+            printf("고객님의 잔액은 %d원입니다.\n\n", p->money);
+            check=0;
+        }
+        
+        else if(f==5){
+            printf("계좌 번호 입력: ");
+            scanf("%s", account);
+            if(strcmp(head->account,account)==0){
+                p1=head;
+                head=p1->link;
+                free(p1);
+            }
+            else{
+                p1=head;
+                while(p1->link!=NULL){
+                    if(strcmp((p1->link)->account,account)==0){
+                        p2=p1->link;
+                        p1->link=p2->link;
+                        free(p2);
+                        break;
+                    }
+                    p1=p1->link;
+                }
+            }
+            printf("해지가 완료되었습니다.\n\n");
+        }
+        
+        else if(f==6){
+            p1=p2=head;
+            while(p2!=NULL){
+                p1=p2;
+                p2=p2->link;
+                free(p1);
+            }
+            printf("은행 계좌 관리 프로그램을 종료합니다.");
+            break;
+        }
+    }
+    
+
+    return 0;
+}
